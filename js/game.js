@@ -264,7 +264,7 @@
         hintClickCount++;
 
         if (hintClickCount >= HINT_MAGIC_NUMBER) {
-            showToast('Mubarak number!!!! answer is ' + secretWord, 6000);
+            showToast('Mubarak number(part of it)!!!! answer is ' + secretWord, 6000);
             hintClickCount = 0; // reset so they can trigger it again
         } else {
             showToast('Hiii 🥺 + 🐥 no hints for you sorry!...but i believe in you bohat ❤️ You can do it ', 4000);
@@ -446,7 +446,7 @@
                 gameOver = true;
                 won = true;
                 console.log('[Urdle] Game ended — banner will appear in 5s');
-                setTimeout(function () { console.log('[Urdle] Showing banner now'); showCountdownBanner(); }, 5000);
+                setTimeout(function () { console.log('[Urdle] Showing banner now'); showCountdownBanner(); }, 4000);
                 markPlayed(attempts, true);
                 showToast('🎉 مبارک ہو!', 3000);
                 saveDailyState(attempts, true, true);
@@ -458,7 +458,7 @@
                 gameOver = true;
                 won = false;
                 console.log('[Urdle] Game ended — banner will appear in 5s');
-                setTimeout(function () { console.log('[Urdle] Showing banner now'); showCountdownBanner(); }, 5000);
+                setTimeout(function () { console.log('[Urdle] Showing banner now'); showCountdownBanner(); }, 4000);
                 markPlayed(attempts, false);
                 showToast('khair hogayiiiii ❤️, asal jawab was ' + secretWord, 4000);
                 saveDailyState(attempts, true, false);
