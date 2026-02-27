@@ -445,6 +445,8 @@
             if (isWin) {
                 gameOver = true;
                 won = true;
+                console.log('[Urdle] Game ended — banner will appear in 5s');
+                setTimeout(function () { console.log('[Urdle] Showing banner now'); showCountdownBanner(); }, 5000);
                 markPlayed(attempts, true);
                 showToast('🎉 مبارک ہو!', 3000);
                 saveDailyState(attempts, true, true);
@@ -455,8 +457,10 @@
             if (currentRow >= MAX_ATTEMPTS) {
                 gameOver = true;
                 won = false;
+                console.log('[Urdle] Game ended — banner will appear in 5s');
+                setTimeout(function () { console.log('[Urdle] Showing banner now'); showCountdownBanner(); }, 5000);
                 markPlayed(attempts, false);
-                showToast('جواب: ' + secretWord, 4000);
+                showToast('khair hogayiiiii ❤️, asal jawab was ' + secretWord, 4000);
                 saveDailyState(attempts, true, false);
                 return;
             }

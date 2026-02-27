@@ -188,25 +188,25 @@ body {
 .keyboard-row {
   display: flex;
   justify-content: center;
-  gap: 4px;
-  flex-wrap: wrap;
+  gap: 3px;
+  flex-wrap: nowrap;
 }
 
 .key {
-  min-width: 32px;
-  height: 40px;
+  min-width: 28px;
+  height: 36px;
   border: none;
-  border-radius: 6px;
+  border-radius: 5px;
   background: transparent;
   color: var(--key-default-text);
   font-family: var(--font-family);
-  font-size: 1.1rem;
+  font-size: 0.95rem;
   font-weight: 600;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 6px;
+  padding: 0 4px;
   transition: background 0.15s, color 0.15s, transform 0.1s;
   user-select: none;
 }
@@ -265,8 +265,8 @@ body {
 
 /* Action keys (backspace, enter) */
 .action-key {
-  min-width: 48px;
-  font-size: 1.2rem;
+  min-width: 40px;
+  font-size: 1.05rem;
   background: #e8e8e8;
   color: var(--text-dark);
 }
