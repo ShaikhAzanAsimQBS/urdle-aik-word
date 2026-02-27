@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ur">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Urdle — Reset Game</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;600;700&display=swap"
+        rel="stylesheet" />
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Noto Sans Arabic', sans-serif;
+            background: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 32px;
+            max-width: 360px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+            color: #212121;
+        }
+
+        p {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            border: none;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.1s, background 0.2s;
+            margin: 6px;
+        }
+
+        .btn:active {
+            transform: scale(0.95);
+        }
+
+        .btn-danger {
+            background: #e53935;
+            color: #fff;
+        }
+
+        .btn-danger:hover {
+            background: #c62828;
+        }
+
+        .btn-back {
+            background: #1e88e5;
+            color: #fff;
+        }
+
+        .btn-back:hover {
+            background: #1565c0;
+        }
+
+        .status {
+            margin-top: 16px;
+            padding: 10px;
+            border-radius: 6px;
+            font-weight: 600;
+            display: none;
+        }
+
+        .status.show {
+            display: block;
+        }
+
+        .status.success {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <h1>🔄 ری سیٹ</h1>
+        <p>Testing mode — reset your daily game so you can play again.</p>
+        <button class="btn btn-danger" id="reset-btn">Reset Game State</button>
+        <br>
+        <a href="index.html" class="btn btn-back" style="text-decoration:none;">← Back to Game</a>
+        <div class="status" id="status"></div>
+    </div>
+
+    <script>
+        document.getElementById('reset-btn').addEventListener('click', function () {
+            // Clear the daily game state from localStorage
+            localStorage.removeItem('urdle_daily');
+
+            const status = document.getElementById('status');
+            status.textContent = '✅ Game state cleared! You can play again.';
+            status.className = 'status show success';
+
+            // Auto-redirect after 1.5s
+            setTimeout(function () {
+                window.location.href = 'index.html';
+            }, 1500);
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ur">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="اُردل — روزانہ اردو الفاظ کا کھیل۔ چار حرفی اردو لفظ تلاش کریں!" />
+  <title>اُردل — چار حرف</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+
+  <div class="app-wrapper">
+
+    <!-- ===== Section 1: Header ===== -->
+    <header class="header" id="header">
+      <button class="help-btn" id="help-btn" aria-label="مدد">?</button>
+      <h1 class="header-title">ایک لفظ ✌️</h1>
+    </header>
+
+    <!-- ===== Section 2: Active Input Area ===== -->
+    <section class="input-area" id="input-area">
+      <span class="hint-icon" id="hint-icon" aria-hidden="true" style="cursor:pointer;">💡</span>
+      <div id="current-guess">
+        <!-- Tiles generated dynamically by game.js -->
+      </div>
+    </section>
+
+    <!-- ===== Section 3: Keyboard ===== -->
+    <section class="keyboard" id="keyboard">
+
+      <!-- Row 1 -->
+      <div class="keyboard-row">
+        <button class="key" data-letter="ط">ط</button>
+        <button class="key" data-letter="ص">ص</button>
+        <button class="key" data-letter="ض">ض</button>
+        <button class="key" data-letter="ق">ق</button>
+        <button class="key" data-letter="ف">ف</button>
+        <button class="key" data-letter="غ">غ</button>
+        <button class="key" data-letter="ع">ع</button>
+        <button class="key" data-letter="ہ">ہ</button>
+        <button class="key" data-letter="خ">خ</button>
+        <button class="key" data-letter="ح">ح</button>
+        <button class="key" data-letter="ج">ج</button>
+      </div>
+
+      <!-- Row 2 -->
+      <div class="keyboard-row">
+        <button class="key" data-letter="ش">ش</button>
+        <button class="key" data-letter="س">س</button>
+        <button class="key" data-letter="ی">ی</button>
+        <button class="key" data-letter="ب">ب</button>
+        <button class="key" data-letter="ل">ل</button>
+        <button class="key" data-letter="ا">ا</button>
+        <button class="key" data-letter="ت">ت</button>
+        <button class="key" data-letter="ن">ن</button>
+        <button class="key" data-letter="م">م</button>
+        <button class="key" data-letter="و">و</button>
+        <button class="key" data-letter="پ">پ</button>
+      </div>
+
+      <!-- Row 3 -->
+      <div class="keyboard-row">
+        <button class="key" data-letter="ئ">ئ</button>
+        <button class="key" data-letter="ء">ء</button>
+        <button class="key" data-letter="ر">ر</button>
+        <button class="key" data-letter="ذ">ذ</button>
+        <button class="key" data-letter="د">د</button>
+        <button class="key" data-letter="ث">ث</button>
+        <button class="key" data-letter="ز">ز</button>
+        <button class="key" data-letter="ظ">ظ</button>
+        <button class="key" data-letter="ک">ک</button>
+        <button class="key" data-letter="گ">گ</button>
+        <button class="key" data-letter="ے">ے</button>
+      </div>
+
+      <!-- Row 4: Action keys -->
+      <div class="keyboard-row">
+        <button class="key action-key" data-letter="backspace" id="key-backspace">⌫</button>
+        <button class="key" data-letter="ڑ">ڑ</button>
+        <button class="key" data-letter="ژ">ژ</button>
+        <button class="key" data-letter="ں">ں</button>
+        <button class="key" data-letter="ڈ">ڈ</button>
+        <button class="key" data-letter="ٹ">ٹ</button>
+        <button class="key" data-letter="چ">چ</button>
+        <button class="key" data-letter="ھ">ھ</button>
+        <button class="key action-key" data-letter="enter" id="key-enter">→</button>
+      </div>
+
+    </section>
+
+    <!-- ===== Section 4: Action Button ===== -->
+    <section class="action-section">
+      <button id="share-btn">
+        <span class="share-icon">📤</span>
+        آج کا سکور شیئر کریں
+      </button>
+    </section>
+
+    <!-- ===== Section 5: History / Score Grid ===== -->
+    <section id="history">
+
+      <!-- Header Row -->
+      <div class="history-header">
+        <div class="col-index">#</div>
+        <div class="col-tiles"></div>
+        <div class="col-word">لفظ</div>
+        <div class="col-badge">👍</div>
+      </div>
+
+      <!-- Data rows generated dynamically by game.js -->
+
+    </section>
+
+    <!-- ===== Help Modal ===== -->
+    <div class="modal-overlay" id="help-modal">
+      <div class="modal-content">
+        <button class="modal-close" id="modal-close">&times;</button>
+        <h2 class="modal-title">کیسے کھیلیں؟</h2>
+
+        <div class="rules-list">
+          <div class="rule-item">
+            <span class="rule-num">1</span>
+            <span>چار حرفی اردو لفظ کا اندازہ لگائیں</span>
+          </div>
+          <div class="rule-item">
+            <span class="rule-num">2</span>
+            <span>آپ کے پاس <strong>5 مواقع</strong> ہیں</span>
+          </div>
+          <div class="rule-item">
+            <span class="rule-num">3</span>
+            <span>ہر اندازے کے بعد ٹائلز کا رنگ بدلے گا:</span>
+          </div>
+
+          <div class="color-guide">
+            <div class="guide-row">
+              <span class="guide-tile correct">ا</span>
+              <span>🟩 حرف صحیح جگہ پر ہے</span>
+            </div>
+            <div class="guide-row">
+              <span class="guide-tile present">ب</span>
+              <span>🟨 حرف لفظ میں ہے مگر غلط جگہ</span>
+            </div>
+            <div class="guide-row">
+              <span class="guide-tile absent">ج</span>
+              <span>⬜ حرف لفظ میں نہیں ہے</span>
+            </div>
+          </div>
+
+          <div class="rule-item">
+            <span class="rule-num">4</span>
+            <span>روزانہ ایک نیا لفظ — سب کے لیے ایک ہی!</span>
+          </div>
+          <div class="rule-item">
+            <span class="rule-num">5</span>
+            <span>جیتنے کے بعد اپنا سکور شیئر کریں 📤</span>
+          </div>
+          <div class="rule-item">
+            <span class="rule-num">6</span>
+            <span>"there are two easter eggs in this game"</span>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <a href="https://www.linkedin.com/in/shaikh-azan-asim-2a46472a8/" target="_blank" rel="noopener noreferrer"
+            class="review-link">
+            click here to leave a review ⭐
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/words.js"></script>
+  <script src="js/daily.js"></script>
+  <script src="js/game.js"></script>
+
+</body>
+
+</html>
