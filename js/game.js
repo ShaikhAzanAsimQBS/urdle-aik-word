@@ -263,8 +263,10 @@
     function handleHintClick() {
         hintClickCount++;
 
-        if (hintClickCount >= HINT_MAGIC_NUMBER) {
-            showToast('Mubarak number(part of it)!!!! answer is ' + secretWord, 6000);
+        if (hintClickCount === HINT_MAGIC_NUMBER) {
+            showToast('Mubarak number(part of it)!!!! if you click aik aur baar toh answer ajaye ga so...', 6000);
+        } else if (hintClickCount > HINT_MAGIC_NUMBER) {
+            showToast('jawab is ' + secretWord, 6000);
             hintClickCount = 0; // reset so they can trigger it again
         } else {
             showToast('Hiii 🥺 + 🐥 no hints for you sorry!...but i believe in you bohat ❤️ You can do it ', 4000);
