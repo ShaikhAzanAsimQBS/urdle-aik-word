@@ -152,7 +152,7 @@
 
             var sparkle = document.createElement('div');
             sparkle.className = 'mubarak-sparkle';
-            sparkle.textContent = '1:18 \u2014 a very special moment \u2764\ufe0f';
+            sparkle.textContent = '1:18 \u2014 a very qeemtiiii moment \u2764\ufe0f';
 
             card.appendChild(closeBtn);
             card.appendChild(top);
