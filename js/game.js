@@ -10,7 +10,7 @@
 
     // --- Constants ---
     const WORD_LENGTH = 4;
-    const MAX_ATTEMPTS = 5;
+    const MAX_ATTEMPTS = 7;
 
     // --- State ---
     let secretWord = '';
@@ -101,6 +101,102 @@
                 }
             });
         }
+
+        // ========================================
+        // Mubarak Waqt — 1:18 Birthday Popup
+        // ========================================
+        let mubarakShownThisMinute = false;
+
+        function getUSEasternTime() {
+            const now = new Date();
+            const parts = new Intl.DateTimeFormat('en-US', {
+                timeZone: 'America/New_York',
+                hour: '2-digit', minute: '2-digit',
+                hour12: false,
+            }).formatToParts(now);
+            const h = parseInt(parts.find(function (p) { return p.type === 'hour'; }).value);
+            const m = parseInt(parts.find(function (p) { return p.type === 'minute'; }).value);
+            return { hour: h, minute: m };
+        }
+
+        function showMubarakPopup() {
+            if (document.getElementById('mubarak-overlay')) return;
+
+            var overlay = document.createElement('div');
+            overlay.id = 'mubarak-overlay';
+            overlay.className = 'mubarak-overlay';
+
+            var card = document.createElement('div');
+            card.className = 'mubarak-card';
+
+            var closeBtn = document.createElement('button');
+            closeBtn.className = 'mubarak-close';
+            closeBtn.textContent = '\u00d7';
+            closeBtn.addEventListener('click', function () {
+                overlay.classList.remove('active');
+                setTimeout(function () { overlay.remove(); }, 500);
+                mubarakShownThisMinute = true;
+            });
+
+            var top = document.createElement('div');
+            top.className = 'mubarak-emojis-top';
+            top.textContent = '\ud83e\udd73\ud83e\udd73\ud83e\udd73\ud83e\udd73\ud83e\udd73';
+
+            var title = document.createElement('div');
+            title.className = 'mubarak-title';
+            title.textContent = '\u2728 Mubarak Waqt \u2728';
+
+            var bottom = document.createElement('div');
+            bottom.className = 'mubarak-emojis-bottom';
+            bottom.textContent = '\u2764\ufe0f\ud83e\udd73\u2764\ufe0f\ud83e\udd73\u2764\ufe0f';
+
+            var sparkle = document.createElement('div');
+            sparkle.className = 'mubarak-sparkle';
+            sparkle.textContent = '1:18 \u2014 a very special moment \u2764\ufe0f';
+
+            card.appendChild(closeBtn);
+            card.appendChild(top);
+            card.appendChild(title);
+            card.appendChild(bottom);
+            card.appendChild(sparkle);
+            overlay.appendChild(card);
+            document.body.appendChild(overlay);
+
+            // Animate in
+            requestAnimationFrame(function () {
+                overlay.classList.add('active');
+            });
+        }
+
+        function hideMubarakPopup() {
+            var overlay = document.getElementById('mubarak-overlay');
+            if (overlay) {
+                overlay.classList.remove('active');
+                setTimeout(function () { overlay.remove(); }, 500);
+            }
+        }
+
+        // Check every 10 seconds
+        setInterval(function () {
+            var t = getUSEasternTime();
+            var isMubarakMinute = (t.hour === 1 || t.hour === 13) && t.minute === 18;
+
+            if (isMubarakMinute && !mubarakShownThisMinute) {
+                showMubarakPopup();
+            } else if (!isMubarakMinute) {
+                // Reset flag so it can show again next time 1:18 comes
+                mubarakShownThisMinute = false;
+                hideMubarakPopup();
+            }
+        }, 10000);
+
+        // Also check immediately on load
+        (function () {
+            var t = getUSEasternTime();
+            if ((t.hour === 1 || t.hour === 13) && t.minute === 18) {
+                showMubarakPopup();
+            }
+        })();
     });
 
     // ========================================
