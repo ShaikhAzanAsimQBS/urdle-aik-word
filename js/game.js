@@ -598,10 +598,10 @@
     }
 
     /**
-     * Calculate time remaining until midnight US Eastern.
+     * Calculate time remaining until 9 PM US Eastern (the daily reset).
      * Returns { hours, minutes, seconds }.
      */
-    function getTimeToMidnight() {
+    function getTimeToReset() {
         const now = new Date();
         // Get current US Eastern time components
         const formatter = new Intl.DateTimeFormat('en-US', {
@@ -617,7 +617,16 @@
         const m = get('minute');
         const s = get('second');
 
-        const totalSecondsLeft = ((23 - h) * 3600) + ((59 - m) * 60) + (60 - s);
+        // Target is 21:00:00 (9 PM ET)
+        const currentSeconds = h * 3600 + m * 60 + s;
+        const targetSeconds = 21 * 3600; // 9 PM = 21:00
+
+        let totalSecondsLeft = targetSeconds - currentSeconds;
+        // If already past 9 PM, count to 9 PM tomorrow
+        if (totalSecondsLeft <= 0) {
+            totalSecondsLeft += 24 * 3600;
+        }
+
         return {
             hours: Math.floor(totalSecondsLeft / 3600),
             minutes: Math.floor((totalSecondsLeft % 3600) / 60),
@@ -659,7 +668,7 @@
 
         // Start live countdown
         function tick() {
-            const t = getTimeToMidnight();
+            const t = getTimeToReset();
             const pad = (n) => String(n).padStart(2, '0');
             timerLine.textContent = pad(t.hours) + ':' + pad(t.minutes) + ':' + pad(t.seconds);
         }

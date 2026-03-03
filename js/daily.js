@@ -7,16 +7,21 @@
 const DAILY_STORAGE_KEY = 'urdle_daily';
 
 /**
- * Get today's date string in US Eastern timezone (YYYY-MM-DD).
+ * Get today's "game day" date string in US Eastern timezone (YYYY-MM-DD).
+ * The game day resets at 9 PM ET, not midnight.
+ * We achieve this by adding 3 hours to the current time before formatting,
+ * so 9 PM ET is treated as the start of the next calendar day.
  */
 function getUSToday() {
     const now = new Date();
+    // Shift forward by 3 hours so the day rolls over at 9 PM ET
+    const shifted = new Date(now.getTime() + 3 * 60 * 60 * 1000);
     const eastern = new Intl.DateTimeFormat('en-CA', {
         timeZone: 'America/New_York',
         year: 'numeric',
         month: '2-digit',
         day: '2-digit',
-    }).format(now);
+    }).format(shifted);
     return eastern; // returns YYYY-MM-DD
 }
 
