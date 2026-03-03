@@ -558,7 +558,7 @@
                 console.log('[Urdle] Game ended — banner will appear in 5s');
                 setTimeout(function () { console.log('[Urdle] Showing banner now'); showCountdownBanner(); }, 6000);
                 markPlayed(attempts, false);
-                showToast('khair hogayiiiii ❤️, asal jawab was ' + secretWord + 'if you did this ande ki khatir toh you dont know me 😤😤 cus i would never want yo to haar in any situation ❤️', 7500);
+                showToast('khair hogayiiiii ❤️, asal jawab was ' + secretWord + 'if you did this ande ki khatir toh you dont know me 😤😤 cus i would never want you to haar in any situation', 9500);
                 saveDailyState(attempts, true, false);
                 return;
             }
