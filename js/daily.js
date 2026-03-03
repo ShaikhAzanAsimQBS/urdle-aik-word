@@ -2,21 +2,39 @@
 // Urdle — Daily Word Selection
 // ========================================
 // Handles daily word picking based on US Eastern time,
-// 24-hour play lock, and localStorage persistence.
+// resets at 9 PM ET each day, and localStorage persistence.
 
 const DAILY_STORAGE_KEY = 'urdle_daily';
+const RESET_HOUR = 21; // 9 PM Eastern
 
 /**
- * Get today's date string in US Eastern timezone (YYYY-MM-DD).
+ * Get the current Urdle "day" string (YYYY-MM-DD).
+ * The day rolls over at 9 PM Eastern — after 9 PM ET
+ * we treat it as the next day's puzzle.
  */
 function getUSToday() {
     const now = new Date();
+
+    // Get current Eastern hour
+    const hourParts = new Intl.DateTimeFormat('en-US', {
+        timeZone: 'America/New_York',
+        hour: '2-digit',
+        hour12: false,
+    }).formatToParts(now);
+    const easternHour = parseInt(hourParts.find(p => p.type === 'hour').value);
+
+    // If past 9 PM ET, advance to next calendar day
+    const dateToFormat = new Date(now);
+    if (easternHour >= RESET_HOUR) {
+        dateToFormat.setDate(dateToFormat.getDate() + 1);
+    }
+
     const eastern = new Intl.DateTimeFormat('en-CA', {
         timeZone: 'America/New_York',
         year: 'numeric',
         month: '2-digit',
         day: '2-digit',
-    }).format(now);
+    }).format(dateToFormat);
     return eastern; // returns YYYY-MM-DD
 }
 
