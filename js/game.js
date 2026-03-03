@@ -605,15 +605,15 @@
     }
 
     /**
-     * Calculate time remaining until 9 PM US Eastern (game reset time).
+     * Calculate time remaining until midnight US Eastern.
      * Returns { hours, minutes, seconds }.
      */
-    function getTimeToReset() {
-        const RESET_HOUR = 21; // 9 PM Eastern
+    function getTimeToMidnight() {
         const now = new Date();
         // Get current US Eastern time components
         const formatter = new Intl.DateTimeFormat('en-US', {
             timeZone: 'America/New_York',
+            year: 'numeric', month: '2-digit', day: '2-digit',
             hour: '2-digit', minute: '2-digit', second: '2-digit',
             hour12: false,
         });
@@ -624,14 +624,7 @@
         const m = get('minute');
         const s = get('second');
 
-        // Seconds from now until 9 PM ET today
-        const nowSeconds = h * 3600 + m * 60 + s;
-        const resetSeconds = RESET_HOUR * 3600;
-        let totalSecondsLeft = resetSeconds - nowSeconds;
-
-        // If already past 9 PM, game already reset — show 0
-        if (totalSecondsLeft <= 0) totalSecondsLeft = 0;
-
+        const totalSecondsLeft = ((23 - h) * 3600) + ((59 - m) * 60) + (60 - s);
         return {
             hours: Math.floor(totalSecondsLeft / 3600),
             minutes: Math.floor((totalSecondsLeft % 3600) / 60),
@@ -673,7 +666,7 @@
 
         // Start live countdown
         function tick() {
-            const t = getTimeToReset();
+            const t = getTimeToMidnight();
             const pad = (n) => String(n).padStart(2, '0');
             timerLine.textContent = pad(t.hours) + ':' + pad(t.minutes) + ':' + pad(t.seconds);
         }
