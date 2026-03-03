@@ -558,7 +558,14 @@
                 console.log('[Urdle] Game ended — banner will appear in 5s');
                 setTimeout(function () { console.log('[Urdle] Showing banner now'); showCountdownBanner(); }, 6000);
                 markPlayed(attempts, false);
-                showToast('khair hogayiiiii ❤️, asal jawab was ' + secretWord + 'if you did this ande ki khatir toh you dont know me 😤😤 cus i would never want you to haar in any situation', 9500);
+                const googleLink = "https://www.google.com/search?q=" + encodeURIComponent(secretWord);
+
+                showToast(
+                    'khair hogayiiiii ❤️, asal jawab was ' +
+                    `<a href="${googleLink}" target="_blank" style="color: inherit; text-decoration: underline;">${secretWord}</a>` +
+                    ' if you did this ande ki khatir toh you dont know me 😤😤 cus i would never want you to haar in any situation',
+                    12500
+                );
                 saveDailyState(attempts, true, false);
                 return;
             }
@@ -598,10 +605,10 @@
     }
 
     /**
-     * Calculate time remaining until 9 PM US Eastern (the daily reset).
+     * Calculate time remaining until midnight US Eastern.
      * Returns { hours, minutes, seconds }.
      */
-    function getTimeToReset() {
+    function getTimeToMidnight() {
         const now = new Date();
         // Get current US Eastern time components
         const formatter = new Intl.DateTimeFormat('en-US', {
@@ -617,16 +624,7 @@
         const m = get('minute');
         const s = get('second');
 
-        // Target is 21:00:00 (9 PM ET)
-        const currentSeconds = h * 3600 + m * 60 + s;
-        const targetSeconds = 21 * 3600; // 9 PM = 21:00
-
-        let totalSecondsLeft = targetSeconds - currentSeconds;
-        // If already past 9 PM, count to 9 PM tomorrow
-        if (totalSecondsLeft <= 0) {
-            totalSecondsLeft += 24 * 3600;
-        }
-
+        const totalSecondsLeft = ((23 - h) * 3600) + ((59 - m) * 60) + (60 - s);
         return {
             hours: Math.floor(totalSecondsLeft / 3600),
             minutes: Math.floor((totalSecondsLeft % 3600) / 60),
@@ -668,7 +666,7 @@
 
         // Start live countdown
         function tick() {
-            const t = getTimeToReset();
+            const t = getTimeToMidnight();
             const pad = (n) => String(n).padStart(2, '0');
             timerLine.textContent = pad(t.hours) + ':' + pad(t.minutes) + ':' + pad(t.seconds);
         }
