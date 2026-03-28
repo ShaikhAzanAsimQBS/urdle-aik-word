@@ -360,12 +360,24 @@
         hintClickCount++;
 
         if (hintClickCount === HINT_MAGIC_NUMBER) {
-            showToast('Mubarak number(part of it)!!!! if you click aik aur baar toh answer ajaye ga so...', 6000);
+            if (window.isUserAtLocation) {
+                showToast('Mubarak number(part of it)!!!! if you click aik aur baar toh answer ajaye ga so...', 6000);
+            } else {
+                showToast('بس ایک اور بار!', 4000);
+            }
         } else if (hintClickCount > HINT_MAGIC_NUMBER) {
-            showToast('jawab is ' + secretWord, 6000);
+            if (window.isUserAtLocation) {
+                showToast('jawab is ' + secretWord, 6000);
+            } else {
+                showToast('جواب ہے: ' + secretWord, 6000);
+            }
             hintClickCount = 0; // reset so they can trigger it again
         } else {
-            showToast('Hiii 🥺 + 🐥 no hints for you sorry!...but i believe in you bohat ❤️ You can do it ', 4000);
+            if (window.isUserAtLocation) {
+                showToast('Hiii 🥺 + 🐥 no hints for you sorry!...but i believe in you bohat ❤️ You can do it ', 4000);
+            } else {
+                showToast('کوئی اشارہ نہیں — خود لگائیں اندازہ!', 3000);
+            }
         }
     }
 
@@ -546,7 +558,11 @@
                 console.log('[Urdle] Game ended — banner will appear in 5s');
                 setTimeout(function () { console.log('[Urdle] Showing banner now'); showCountdownBanner(); }, 4000);
                 markPlayed(attempts, true);
-                showToast('I had poora bharosa on you 🥺+🐥🎉 مبارک ہو!', 3000);
+                if (window.isUserAtLocation) {
+                    showToast('I had poora bharosa on you 🥺+🐥🎉 مبارک ہو!', 3000);
+                } else {
+                    showToast('شاباش! 🎉 آپ نے صحیح جواب دیا!', 3000);
+                }
                 saveDailyState(attempts, true, true);
                 return;
             }
@@ -560,12 +576,20 @@
                 markPlayed(attempts, false);
                 const googleLink = "https://www.google.com/search?q=" + encodeURIComponent(secretWord);
 
-                showToast(
-                    'khair hogayiiiii ❤️, asal jawab was ' +
-                    `<a href="${googleLink}" target="_blank" style="color: inherit; text-decoration: underline;">${secretWord}</a>` +
-                    ' if you did this ande ki khatir toh you dont know me 😤😤 cus i would never want you to haar in any situation',
-                    12500
-                );
+                if (window.isUserAtLocation) {
+                    showToast(
+                        'khair hogayiiiii ❤️, asal jawab was ' +
+                        `<a href="${googleLink}" target="_blank" style="color: inherit; text-decoration: underline;">${secretWord}</a>` +
+                        ' if you did this ande ki khatir toh you dont know me 😤😤 cus i would never want you to haar in any situation',
+                        12500
+                    );
+                } else {
+                    showToast(
+                        'افسوس! صحیح جواب تھا: ' +
+                        `<a href="${googleLink}" target="_blank" style="color: inherit; text-decoration: underline;">${secretWord}</a>`,
+                        6000
+                    );
+                }
                 saveDailyState(attempts, true, false);
                 return;
             }
@@ -646,7 +670,11 @@
 
         const msgLine = document.createElement('div');
         msgLine.className = 'countdown-msg';
-        msgLine.textContent = 'har waqt is acha ❤️ but you have to wait';
+        if (window.isUserAtLocation) {
+            msgLine.textContent = 'har waqt is acha ❤️ but you have to wait';
+        } else {
+            msgLine.textContent = 'اگلا لفظ آنے میں باقی ہے';
+        }
 
         const timerLine = document.createElement('div');
         timerLine.className = 'countdown-timer';
