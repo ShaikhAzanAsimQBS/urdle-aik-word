@@ -574,7 +574,7 @@
                 console.log('[Urdle] Game ended — banner will appear in 5s');
                 setTimeout(function () { console.log('[Urdle] Showing banner now'); showCountdownBanner(); }, 6000);
                 markPlayed(attempts, false);
-                const googleLink = "https://www.google.com/search?q=" + encodeURIComponent(secretWord);
+                const googleLink = "https://www.google.com/search?q=" + encodeURIComponent(secretWord + " meaning in urdu");
 
                 if (window.isUserAtLocation) {
                     showToast(
