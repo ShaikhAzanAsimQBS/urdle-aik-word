@@ -393,7 +393,7 @@
 
         const toast = document.createElement('div');
         toast.className = 'toast';
-        toast.textContent = message;
+        toast.innerHTML = message;
         document.querySelector('.app-wrapper').appendChild(toast);
 
         // Trigger animation
