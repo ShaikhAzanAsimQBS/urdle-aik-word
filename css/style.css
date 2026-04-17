@@ -768,8 +768,104 @@ body {
 }
 
 /* ========================================
+   Anniversary Celebration Popup
+   ======================================== */
+.anniversary-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 4000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+.anniversary-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.anniversary-card {
+  background: linear-gradient(145deg, #e3f2fd, #bbdefb, #e3f2fd);
+  border: 2px solid #90caf9;
+  border-radius: 20px;
+  padding: 32px 24px;
+  max-width: 320px;
+  width: 85vw;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 12px 40px rgba(33, 150, 243, 0.3), 0 0 60px rgba(187, 222, 251, 0.2);
+  transform: scale(0.7) translateY(20px);
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.anniversary-overlay.active .anniversary-card {
+  transform: scale(1) translateY(0);
+}
+
+.anniversary-emojis-top {
+  font-size: 1.8rem;
+  letter-spacing: 6px;
+  margin-bottom: 12px;
+  animation: floatEmoji 2s ease-in-out infinite;
+}
+
+.anniversary-title {
+  font-size: 1.5rem;
+  line-height: 1.4;
+  font-weight: 700;
+  color: #0d47a1;
+  margin: 12px 0;
+  text-shadow: 0 1px 2px rgba(13, 71, 161, 0.1);
+}
+
+.anniversary-emojis-bottom {
+  font-size: 1.6rem;
+  letter-spacing: 5px;
+  margin-top: 14px;
+  animation: floatEmoji 2s ease-in-out infinite 0.5s;
+}
+
+.anniversary-sparkle {
+  font-size: 0.9rem;
+  color: #1565c0;
+  margin-top: 14px;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+.anniversary-close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  width: 30px;
+  height: 30px;
+  border: none;
+  background: rgba(0, 0, 0, 0.06);
+  border-radius: 50%;
+  font-size: 1.2rem;
+  color: #1976d2;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, transform 0.2s;
+}
+
+
+.anniversary-close:hover {
+  background: rgba(0, 0, 0, 0.12);
+  transform: rotate(90deg);
+}
+
+/* ========================================
    Animations
    ======================================== */
+
 @keyframes pop {
   0% {
     transform: scale(1);

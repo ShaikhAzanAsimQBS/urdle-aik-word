@@ -176,6 +176,57 @@
             }
         }
 
+        function showAnniversaryPopup() {
+            if (document.getElementById('anniversary-overlay')) return;
+
+            var overlay = document.createElement('div');
+            overlay.id = 'anniversary-overlay';
+            overlay.className = 'anniversary-overlay';
+
+            var card = document.createElement('div');
+            card.className = 'anniversary-card';
+
+            var closeBtn = document.createElement('button');
+            closeBtn.className = 'anniversary-close';
+            closeBtn.textContent = '\u00d7';
+            closeBtn.addEventListener('click', function () {
+                overlay.classList.remove('active');
+                setTimeout(function () { overlay.remove(); }, 500);
+            });
+
+            var top = document.createElement('div');
+            top.className = 'anniversary-emojis-top';
+            top.textContent = '\ud83e\udd88 \ud83d\udc81\u200d\u2640\ufe0f \u2728 \ud83e\udee1 \u2764\ufe0f';
+
+
+            var title = document.createElement('div');
+            title.className = 'anniversary-title';
+            title.textContent = 'Congratulations for being a shark and phir a boss girl for 10years';
+
+            var bottom = document.createElement('div');
+            bottom.className = 'anniversary-emojis-bottom';
+            bottom.textContent = '\u2764\ufe0f \ud83e\udee1 \ud83e\udd88 \ud83d\udc81\u200d\u2640\ufe0f \u2764\ufe0f';
+
+
+            var sparkle = document.createElement('div');
+            sparkle.className = 'anniversary-sparkle';
+            sparkle.textContent = 'mehntiiiiiiiiiiiiiiiiiiiiiii MashaAllah MashaAllah, I am so proud of you';
+
+            card.appendChild(closeBtn);
+            card.appendChild(top);
+            card.appendChild(title);
+            card.appendChild(bottom);
+            card.appendChild(sparkle);
+            overlay.appendChild(card);
+            document.body.appendChild(overlay);
+
+            // Animate in
+            requestAnimationFrame(function () {
+                overlay.classList.add('active');
+            });
+        }
+
+
         // Check every 10 seconds
         setInterval(function () {
             var t = getUSEasternTime();
@@ -196,8 +247,12 @@
             if ((t.hour === 1 || t.hour === 13) && t.minute === 18) {
                 showMubarakPopup();
             }
+
+            // Always show anniversary popup on load
+            showAnniversaryPopup();
         })();
     });
+
 
     // ========================================
     // Urdu String Utilities
